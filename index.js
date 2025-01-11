@@ -28,7 +28,7 @@ const rajaOngkirRequest = async (endpoint, params = {}, method = 'GET') => {
 app.get('/api/province', async (req, res) => {
   try {
     const data = await rajaOngkirRequest('/province');
-    res.json(data.rajaongkir.results);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -38,7 +38,7 @@ app.get('/api/city', async (req, res) => {
   try {
     const { province_id } = req.query;
     const data = await rajaOngkirRequest('/city', { province: province_id });
-    res.json(data.rajaongkir.results);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -56,7 +56,7 @@ app.post('/api/cost', async (req, res) => {
       { origin, destination, weight, courier },
       'POST'
     );
-    res.json(data.rajaongkir.results);
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
