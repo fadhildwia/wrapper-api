@@ -44,8 +44,8 @@ app.get('/api/province', async (req, res) => {
 
 app.get('/api/city', async (req, res) => {
   try {
-    const { province_id } = req.query;
-    const data = await rajaOngkirRequest('/city', { province: province_id });
+    const { province } = req.query;
+    const data = await rajaOngkirRequest('/city', { province: province });
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
