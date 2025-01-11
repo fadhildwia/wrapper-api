@@ -12,12 +12,20 @@ app.use(express.json())
 
 const rajaOngkirRequest = async (endpoint, params = {}, method = 'GET') => {
   try {
-    const response = await axios({
+    const config = {
       method,
       url: `${process.env.RAJAONGKIR_BASE_URL}${endpoint}`,
       headers: { key: process.env.RAJAONGKIR_API_KEY },
-      params,
-    });
+    };
+
+    if (method === 'POST') {
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      config.data = new URLSearchParams(params).toString();
+    } else {
+      config.params = params;
+    }
+
+    const response = await axios(config);
     return response.data;
   } catch (error) {
     console.error(error.response?.data || error.message);
